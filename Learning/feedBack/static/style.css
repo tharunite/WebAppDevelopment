@@ -1,0 +1,61 @@
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(270deg,
+        #a1c4fd,  /* soft sky blue */
+        #c2e9fb,  /* misty blue */
+        #d4fc79,  /* pale mint */
+        #96e6a1,  /* soft green */
+        #fbc2eb,  /* rose blush */
+        #a6c0fe,  /* lavender blue */
+        #fbd3e9,  /* soft pink */
+        #cfd9df   /* cloud grey */
+    );
+    background-size: 1600% 1600%;
+    animation: softFlow 80s ease-in-out infinite;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Keyframe for slow, soothing movement */
+@keyframes softFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+
+
+.container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 400px;
+    text-align: center;
+}
+
+input, textarea {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #45a049;
+}

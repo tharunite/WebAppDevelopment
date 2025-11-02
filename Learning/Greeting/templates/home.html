@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body><div class="container"><h1>Hello World</h1>
+    <form action='/greet' method="get">
+        <label for="name">Enter Your Name: </label><br>
+        <input type="text" id="name" name="name" placeholder="Your name here..."><br>
+        <button type="submit">Greet me</button>
+    </form>
+<footer>Built with 💖 using flask</footer></body></html>
