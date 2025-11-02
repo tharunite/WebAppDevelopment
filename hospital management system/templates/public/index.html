@@ -1,0 +1,463 @@
+{% extends "public_base.html" %}
+
+{% block title %}Home - CityCare Hospital{% endblock %}
+
+{% block extra_css %}
+<style>
+    .pending-appointments-section {
+        background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-orange-dark) 100%);
+        color: white;
+        padding: 100px 0;
+        margin-top: -76px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Pending Appointments Section (for logged-in patients) -->
+{% if current_user.is_authenticated and current_user.role == 'patient' and pending_appointments %}
+<section class="pending-appointments-section">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="display-5 fw-bold mb-3">Your Upcoming Appointments</h2>
+            <p class="lead">You have {{ pending_appointments|length }} pending appointment(s)</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="table-responsive">
+                    <table class="table table-light table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Doctor</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in pending_appointments %}
+                            <tr>
+                                <td>{{ appointment.appointment_date }}</td>
+                                <td>{{ appointment.appointment_time }}</td>
+                                <td>{{ appointment.doctor_name }}</td>
+                                <td>{{ appointment.department or 'N/A' }}</td>
+                                <td>
+                                    <span class="badge bg-info">{{ appointment.status }}</span>
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('patient.dashboard') }}" class="btn btn-sm btn-primary">View Details</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('patient.dashboard') }}" class="btn btn-light btn-lg">
+                        <i class="bi bi-speedometer2"></i> Go to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% elif current_user.is_authenticated and current_user.role == 'patient' %}
+<section class="py-5 bg-light" style="margin-top: -76px; padding-top: 100px !important;">
+    <div class="container">
+        <div class="alert alert-info text-center">
+            <h5>No Pending Appointments</h5>
+            <p>You don't have any upcoming appointments at the moment.</p>
+            <a href="{{ url_for('patient.dashboard') }}" class="btn btn-primary">Book an Appointment</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Hero Section -->
+<section class="hero-split" style="margin-top: {% if not (current_user.is_authenticated and current_user.role == 'patient') %}-76px; padding-top: 150px !important;{% else %}0;{% endif %}">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Left Side: Text Content -->
+            <div class="col-lg-6 mb-5 mb-lg-0 fade-in-up">
+                <div class="hero-text">
+                    <h1>
+                        One Stop <span class="highlight">Digital Healthcare</span> Solutions for Clinics & Hospitals
+                        <i class="bi bi-graph-up-arrow" style="color: var(--primary-orange); font-size: 1.5rem; margin-left: 10px;"></i>
+                    </h1>
+                    <p class="subtitle">
+                        Empowering Healthcare Stakeholders with Cutting Edge and Innovative Software Products
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg px-4 py-3" style="background-color: var(--primary-orange); border-color: var(--primary-orange);">
+                            <i class="bi bi-calendar-check"></i> Book a Demo
+                        </a>
+                        <a href="{{ url_for('public.contact') }}" class="btn btn-outline-primary btn-lg px-4 py-3" style="color: var(--primary-orange); border-color: var(--primary-orange);">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Side: Visual/Graphic -->
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <div class="hero-graphic position-relative">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=600&fit=crop" 
+                             alt="Doctor with laptop" 
+                             class="img-fluid rounded-3 shadow-lg position-relative" 
+                             style="z-index: 3; max-height: 500px; width: 100%; object-fit: cover;">
+                        <!-- Sparkle effects -->
+                        <div style="position: absolute; top: -20px; right: 50px; width: 60px; height: 60px; background: rgba(255,255,255,0.5); border-radius: 50%; transform: rotate(45deg); z-index: 4;"></div>
+                        <div style="position: absolute; bottom: 50px; left: 30px; width: 40px; height: 40px; background: rgba(255,255,255,0.4); border-radius: 50%; z-index: 4;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trust Badge -->
+<div class="trust-badge">
+    <div class="container">
+        <p class="trust-text mb-0">
+            Trusted by <span class="trust-number">1500+</span> Customers Worldwide!
+        </p>
+    </div>
+</div>
+
+<!-- About Section -->
+<section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4" style="color: var(--text-dark);">About CityCare Hospital</h2>
+                <p class="lead" style="color: var(--text-light);">We are a leading healthcare institution committed to providing exceptional medical care to our community.</p>
+                <p style="color: var(--text-light);">Founded in 1985, CityCare Hospital has grown to become one of the region's most trusted medical centers. With over 200 experienced doctors and state-of-the-art facilities, we offer comprehensive healthcare services across multiple specialties.</p>
+                <div class="row mt-4">
+                    <div class="col-6">
+                        <h3 style="color: var(--primary-orange); font-size: 2.5rem; font-weight: 700;">200+</h3>
+                        <p style="color: var(--text-light);">Expert Doctors</p>
+                    </div>
+                    <div class="col-6">
+                        <h3 style="color: var(--primary-orange); font-size: 2.5rem; font-weight: 700;">40+</h3>
+                        <p style="color: var(--text-light);">Years of Service</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=600&h=400&fit=crop" 
+                     alt="Modern hospital facility" 
+                     class="img-fluid rounded-3 shadow-lg">
+                <div class="bg-light p-5 rounded mt-4">
+                    <h4>Our Mission</h4>
+                    <p>To provide compassionate, high-quality healthcare that improves the health and well-being of the communities we serve.</p>
+                    <h4 class="mt-4">Our Vision</h4>
+                    <p>To be the leading healthcare provider, recognized for excellence in patient care, medical innovation, and community health.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Departments Section -->
+<section class="py-5" style="background: #F8F9FA;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold" style="color: var(--text-dark);">Our Departments</h2>
+            <p class="lead" style="color: var(--text-light);">Comprehensive medical care across multiple specialties</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card modern-card department-card">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop" 
+                         alt="Cardiology" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="mb-3" style="font-size: 2rem; color: var(--primary-orange);">
+                            <i class="bi bi-heart-pulse-fill"></i>
+                        </div>
+                        <h5 class="card-title">Cardiology</h5>
+                        <p class="card-text text-muted">Expert care for heart and cardiovascular conditions with advanced diagnostic and treatment options.</p>
+                        <a href="{{ url_for('public.departments') }}" class="btn btn-outline-primary">View Doctors</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card department-card">
+                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=250&fit=crop" 
+                         alt="Neurology" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="mb-3" style="font-size: 2rem; color: var(--primary-orange);">
+                            <i class="bi bi-brain"></i>
+                        </div>
+                        <h5 class="card-title">Neurology</h5>
+                        <p class="card-text text-muted">Comprehensive neurological care including stroke treatment, epilepsy management, and brain surgery.</p>
+                        <a href="{{ url_for('public.departments') }}" class="btn btn-outline-primary">View Doctors</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card department-card">
+                    <img src="https://images.unsplash.com/photo-1584433144859-1fc3ab64a957?w=400&h=250&fit=crop" 
+                         alt="Orthopedics" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="mb-3" style="font-size: 2rem; color: var(--primary-orange);">
+                            <i class="bi bi-bone"></i>
+                        </div>
+                        <h5 class="card-title">Orthopedics</h5>
+                        <p class="card-text text-muted">Advanced orthopedic surgery and treatment for bone, joint, and muscle conditions.</p>
+                        <a href="{{ url_for('public.departments') }}" class="btn btn-outline-primary">View Doctors</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card department-card">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173baa4f81d?w=400&h=250&fit=crop" 
+                         alt="Pediatrics" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="mb-3" style="font-size: 2rem; color: var(--primary-orange);">
+                            <i class="bi bi-emoji-smile-fill"></i>
+                        </div>
+                        <h5 class="card-title">Pediatrics</h5>
+                        <p class="card-text text-muted">Specialized care for infants, children, and adolescents in a child-friendly environment.</p>
+                        <a href="{{ url_for('public.departments') }}" class="btn btn-outline-primary">View Doctors</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card department-card">
+                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=400&h=250&fit=crop" 
+                         alt="Dermatology" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="mb-3" style="font-size: 2rem; color: var(--primary-orange);">
+                            <i class="bi bi-droplet-fill"></i>
+                        </div>
+                        <h5 class="card-title">Dermatology</h5>
+                        <p class="card-text text-muted">Expert diagnosis and treatment of skin, hair, and nail conditions for all ages.</p>
+                        <a href="{{ url_for('public.departments') }}" class="btn btn-outline-primary">View Doctors</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card department-card">
+                    <img src="https://images.unsplash.com/photo-1628595351029-728fd0f4f6ef?w=400&h=250&fit=crop" 
+                         alt="Ophthalmology" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="mb-3" style="font-size: 2rem; color: var(--primary-orange);">
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                        <h5 class="card-title">Ophthalmology</h5>
+                        <p class="card-text text-muted">Comprehensive eye care services including cataract surgery and vision correction.</p>
+                        <a href="{{ url_for('public.departments') }}" class="btn btn-outline-primary">View Doctors</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('public.departments') }}" class="btn btn-primary" style="background-color: var(--primary-orange); border-color: var(--primary-orange);">
+                View More Departments <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Treatments Section -->
+<section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold" style="color: var(--text-dark);">Our Treatments</h2>
+            <p class="lead" style="color: var(--text-light);">Advanced medical treatments and procedures</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card modern-card treatment-card h-100">
+                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=200&fit=crop&q=80" 
+                         alt="Heart Surgery" 
+                         class="card-img-top" 
+                         style="height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-heart-fill text-danger"></i> Heart Surgery</h5>
+                        <p class="card-text">Advanced cardiac procedures including bypass surgery, valve replacement, and minimally invasive heart surgery.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card treatment-card h-100">
+                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=400&h=200&fit=crop&q=80" 
+                         alt="Skin Therapy" 
+                         class="card-img-top" 
+                         style="height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-droplet-fill" style="color: var(--primary-orange);"></i> Skin Therapy</h5>
+                        <p class="card-text">Comprehensive dermatological treatments including laser therapy, acne treatment, and cosmetic procedures.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card treatment-card h-100">
+                    <img src="https://images.unsplash.com/photo-1584433144859-1fc3ab64a957?w=400&h=200&fit=crop&q=80" 
+                         alt="Joint Replacement" 
+                         class="card-img-top" 
+                         style="height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-bone text-info"></i> Joint Replacement</h5>
+                        <p class="card-text">Advanced orthopedic procedures including hip, knee, and shoulder replacement surgery with latest technology.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card treatment-card h-100">
+                    <img src="https://images.unsplash.com/photo-1628595351029-728fd0f4f6ef?w=400&h=200&fit=crop&q=80" 
+                         alt="Eye Surgery" 
+                         class="card-img-top" 
+                         style="height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-eye-fill text-success"></i> Eye Surgery</h5>
+                        <p class="card-text">Cataract surgery, LASIK, and other vision correction procedures performed by experienced ophthalmologists.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card treatment-card h-100">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=200&fit=crop&q=80" 
+                         alt="Pulmonary Care" 
+                         class="card-img-top" 
+                         style="height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-lungs-fill text-warning"></i> Pulmonary Care</h5>
+                        <p class="card-text">Comprehensive respiratory care including treatment for asthma, COPD, and other lung conditions.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card modern-card treatment-card h-100">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=200&fit=crop&q=80" 
+                         alt="Preventive Care" 
+                         class="card-img-top" 
+                         style="height: 180px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-capsule text-danger"></i> Preventive Care</h5>
+                        <p class="card-text">Regular health checkups, vaccinations, and screening programs to maintain your health and wellness.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('public.treatments') }}" class="btn btn-primary" style="background-color: var(--primary-orange); border-color: var(--primary-orange);">
+                View More Treatments <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Success Stories Section -->
+<section class="py-5" style="background: #F8F9FA;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold" style="color: var(--text-dark);">Success Stories</h2>
+            <p class="lead" style="color: var(--text-light);">Real stories from our patients - Life-changing treatments</p>
+        </div>
+        <div class="row g-4">
+            {% set featured_stories = [
+                {'name': 'Rajesh Kumar', 'role': 'Robotic Heart Transplant Patient', 'quote': '"I was told by several hospitals that my condition was too complex. CityCare Hospital performed a robotic heart transplant that only 3 hospitals in India can do. The precision and care were outstanding. I\'m alive today because of their expertise."', 'procedure': 'Robotic Heart Transplant'},
+                {'name': 'Priya Sharma', 'role': 'Deep Brain Stimulation Patient', 'quote': '"After years of suffering from Parkinson\'s, I underwent Deep Brain Stimulation at CityCare - one of only 3 hospitals in India that performs this. The results were life-changing. My tremors are gone and I can live normally again."', 'procedure': 'Deep Brain Stimulation'},
+                {'name': 'Meera Reddy', 'role': 'TAVR Procedure Patient', 'quote': '"At 78, I was too high-risk for open-heart surgery. CityCare offered TAVR procedure which only 3 hospitals in India perform. It was minimally invasive, and I recovered in just 3 days! The technology here is incredible."', 'procedure': 'TAVR'}
+            ] %}
+            {% for story in featured_stories %}
+            <div class="col-md-4">
+                <div class="card modern-card h-100">
+                    <div class="card-body text-center p-4">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face&q=80" 
+                             alt="{{ story.name }}" 
+                             class="rounded-circle mb-3" 
+                             style="width: 100px; height: 100px; object-fit: cover; border: 4px solid var(--primary-orange);">
+                        <span class="badge" style="background-color: var(--primary-orange); color: white; font-size: 0.7rem; margin-bottom: 10px;">Rare Procedure</span>
+                        <div class="mb-3">
+                            <i class="bi bi-quote" style="font-size: 2rem; color: var(--primary-orange);"></i>
+                        </div>
+                        <p class="card-text" style="font-size: 0.95rem;">{{ story.quote }}</p>
+                        <div class="mt-auto">
+                            <strong>- {{ story.name }}</strong><br>
+                            <small class="text-muted">{{ story.role }}</small>
+                            <br><small class="text-muted" style="font-size: 0.75rem;"><em>{{ story.procedure }}</em></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('public.success_stories') }}" class="btn btn-primary" style="background-color: var(--primary-orange); border-color: var(--primary-orange);">
+                View All Success Stories <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold" style="color: var(--text-dark);">Latest Health Insights</h2>
+            <p class="lead" style="color: var(--text-light);">Expert advice and medical news from our specialists</p>
+        </div>
+        <div class="row g-4">
+            {% set featured_blogs = [
+                {'title': 'Understanding Heart Health: A Complete Guide', 'excerpt': 'Learn about maintaining a healthy heart, common cardiovascular conditions, and preventive measures you can take today.', 'author': 'Dr. Rajesh Kumar', 'date': '2024-01-15', 'category': 'Cardiology', 'image': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop'},
+                {'title': 'Robotic Surgery: The Future of Minimally Invasive Procedures', 'excerpt': 'Discover how robotic-assisted surgery is revolutionizing healthcare, reducing recovery times, and improving patient outcomes.', 'author': 'Dr. Priya Sharma', 'date': '2024-01-10', 'category': 'Technology', 'image': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=250&fit=crop'},
+                {'title': 'Mental Health Matters: Breaking the Stigma', 'excerpt': 'An important discussion about mental health awareness, available treatments, and how to support loved ones struggling with mental health issues.', 'author': 'Dr. Sarah Johnson', 'date': '2024-01-05', 'category': 'Mental Health', 'image': 'https://images.unsplash.com/photo-1576091160550-2173baa4f81d?w=400&h=250&fit=crop'}
+            ] %}
+            {% for blog in featured_blogs %}
+            <div class="col-md-4">
+                <div class="card modern-card h-100">
+                    <img src="{{ blog.image }}" 
+                         alt="{{ blog.title }}" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <div class="mb-2">
+                            <span class="badge" style="background-color: var(--primary-orange); color: white; font-size: 0.7rem;">
+                                {{ blog.category }}
+                            </span>
+                        </div>
+                        <h5 class="card-title mt-2">{{ blog.title }}</h5>
+                        <p class="card-text text-muted flex-grow-1">{{ blog.excerpt }}</p>
+                        <div class="mt-auto">
+                            <small class="text-muted">
+                                <i class="bi bi-person"></i> {{ blog.author }} • <i class="bi bi-calendar"></i> {{ blog.date }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('public.blog') }}" class="btn btn-primary" style="background-color: var(--primary-orange); border-color: var(--primary-orange);">
+                View All Blog Posts <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+
+
+
+
+
+
+

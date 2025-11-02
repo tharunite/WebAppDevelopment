@@ -1,0 +1,60 @@
+{% extends "public_base.html" %}
+
+{% block title %}Departments - CityCare Hospital{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold">Our Medical Departments</h1>
+            <p class="lead text-muted">Comprehensive healthcare services across multiple specialties</p>
+        </div>
+        <div class="row g-4">
+            {% for dept in departments %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card modern-card shadow-sm h-100">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop&q=80" 
+                         alt="{{ dept.name }}" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ dept.name }}</h5>
+                        <p class="card-text text-muted">{{ dept.description or 'Expert care in this specialty.' }}</p>
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-primary" style="background-color: var(--primary-orange); border-color: var(--primary-orange);">View Doctors</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+            <!-- Additional departments if needed -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card modern-card shadow-sm h-100">
+                    <img src="https://images.unsplash.com/photo-1584433144859-1fc3ab64a957?w=400&h=250&fit=crop&q=80" 
+                         alt="Orthopedics" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">Orthopedics</h5>
+                        <p class="card-text text-muted">Advanced orthopedic surgery and treatment for bone, joint, and muscle conditions.</p>
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-primary" style="background-color: var(--primary-orange); border-color: var(--primary-orange);">View Doctors</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card modern-card shadow-sm h-100">
+                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=400&h=250&fit=crop&q=80" 
+                         alt="Dermatology" 
+                         class="card-img-top" 
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">Dermatology</h5>
+                        <p class="card-text text-muted">Expert diagnosis and treatment of skin, hair, and nail conditions for all ages.</p>
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-primary" style="background-color: var(--primary-orange); border-color: var(--primary-orange);">View Doctors</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

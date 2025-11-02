@@ -1,0 +1,40 @@
+{% extends "public_base.html" %}
+
+{% block title %}Treatments - CityCare Hospital{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold">Our Treatments & Services</h1>
+            <p class="lead text-muted">Advanced medical treatments and procedures</p>
+        </div>
+        <div class="row g-4">
+            {% for treatment in treatments %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card modern-card shadow-sm h-100" {% if treatment.premium %}style="border: 2px solid var(--primary-orange);"{% endif %}>
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop&q=80" 
+                             alt="{{ treatment.name }}" 
+                             class="card-img-top" 
+                             style="height: 200px; object-fit: cover;">
+                        {% if treatment.premium %}
+                            <span class="badge position-absolute top-0 end-0 m-2" style="background-color: var(--primary-orange); color: white; font-size: 0.75rem;">
+                                <i class="bi bi-star-fill"></i> Only 3 Hospitals in India
+                            </span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi bi-{{ treatment.icon }}" style="color: var(--primary-orange);"></i> {{ treatment.name }}
+                        </h5>
+                        <p class="card-text">{{ treatment.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+

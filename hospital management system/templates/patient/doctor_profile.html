@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Profile - HMS{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop&crop=face" 
+                     alt="Dr. {{ doctor.fullname }}" 
+                     class="rounded-circle shadow-lg mb-3" 
+                     style="width: 200px; height: 200px; object-fit: cover; border: 5px solid var(--primary-orange);">
+            </div>
+            <div class="col-md-9">
+                <h3>Dr. {{ doctor.fullname }}</h3>
+                <p class="text-muted">{{ doctor.qualification or 'Medical Professional' }}</p>
+                <p><strong>{{ doctor.specialization }}</strong></p>
+                {% if doctor.department %}
+                    <p><strong>Department:</strong> {{ doctor.department }}</p>
+                {% endif %}
+                {% if doctor.experience_years %}
+                    <p><strong>Experience:</strong> {{ doctor.experience_years }} Years Experience Overall</p>
+                {% endif %}
+                {% if doctor.bio %}
+                    <div class="mt-3">
+                        <h5>About</h5>
+                        <p>{{ doctor.bio }}</p>
+                    </div>
+                {% endif %}
+                <div class="mt-3">
+                    <a href="{{ url_for('patient.check_availability', doctor_id=doctor.id) }}" class="btn btn-primary">
+                        <i class="bi bi-calendar-check"></i> Check Availability
+                    </a>
+                    <a href="{{ url_for('patient.dashboard') }}" class="btn btn-secondary">Go Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

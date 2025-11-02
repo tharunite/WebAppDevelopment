@@ -1,0 +1,70 @@
+{% extends "public_base.html" %}
+
+{% block title %}Contact Us - CityCare Hospital{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold">Contact Us</h1>
+            <p class="lead text-muted">Get in touch with CityCare Hospital</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 mb-4">
+                <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=600&h=400&fit=crop" 
+                     alt="Hospital building" 
+                     class="img-fluid rounded-3 shadow-lg">
+            </div>
+            <div class="col-lg-7">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <div class="row mb-4">
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="text-primary mb-3" style="font-size: 2.5rem;">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                </div>
+                                <h5>Address</h5>
+                                <p class="text-muted">
+                                    123 Medical Center Drive<br>
+                                    Healthcare City, HC 12345
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="text-primary mb-3" style="font-size: 2.5rem;">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </div>
+                                <h5>Phone</h5>
+                                <p class="text-muted">
+                                    +1 (555) 123-4567<br>
+                                    Emergency: +1 (555) 123-9111
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="text-primary mb-3" style="font-size: 2.5rem;">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </div>
+                                <h5>Email</h5>
+                                <p class="text-muted">
+                                    info@citycarehospital.com<br>
+                                    appointments@citycarehospital.com
+                                </p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <h5 class="mb-3">Operating Hours</h5>
+                            <p class="text-muted">
+                                <strong>Monday - Friday:</strong> 8:00 AM - 8:00 PM<br>
+                                <strong>Saturday:</strong> 9:00 AM - 5:00 PM<br>
+                                <strong>Sunday:</strong> 10:00 AM - 4:00 PM<br>
+                                <strong>Emergency Services:</strong> 24/7
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

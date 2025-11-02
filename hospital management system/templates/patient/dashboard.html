@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Dashboard - HMS{% endblock %}
+
+{% block content %}
+<h1 class="mb-4"><i class="bi bi-speedometer2"></i> Welcome {{ current_user.fullname }}</h1>
+
+<!-- Departments Section -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-building"></i> Departments</h5>
+    </div>
+    <div class="card-body">
+        {% if departments %}
+            <div class="row">
+                {% for dept in departments %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ dept.name }}</h6>
+                            <p class="card-text text-muted small">{{ dept.description or 'No description available' }}</p>
+                            <a href="{{ url_for('patient.view_department', department_id=dept.id) }}" class="btn btn-sm btn-primary">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">No departments available.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Upcoming Appointments -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-calendar-check"></i> Upcoming Appointments</h5>
+    </div>
+    <div class="card-body">
+        {% if upcoming_appointments %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>Doctor Name</th>
+                            <th>Dept</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in upcoming_appointments %}
+                        <tr>
+                            <td>{{ appointment.id }}</td>
+                            <td>{{ appointment.doctor_name }}</td>
+                            <td>{{ appointment.department or 'N/A' }}</td>
+                            <td>{{ appointment.appointment_date }}</td>
+                            <td>{{ appointment.appointment_time }}</td>
+                            <td>
+                                <span class="badge bg-info">{{ appointment.status }}</span>
+                            </td>
+                            <td>
+                                <form method="POST" action="{{ url_for('patient.cancel_appointment', appointment_id=appointment.id) }}" 
+                                      style="display:inline;" onsubmit="return confirm('Cancel this appointment?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-x-circle"></i> Cancel
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted">No upcoming appointments.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Search -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" action="{{ url_for('patient.search') }}" class="d-flex">
+            <input type="text" class="form-control me-2" name="query" placeholder="Search doctor, specialization..." value="{{ request.args.get('query', '') }}">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i> Search
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

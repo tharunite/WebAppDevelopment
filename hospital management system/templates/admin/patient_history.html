@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Patient History - HMS{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0"><i class="bi bi-file-medical"></i> Patient History</h4>
+            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="mb-4">
+            <p><strong>Patient Name:</strong> {{ appointment.patient_name }}</p>
+            <p><strong>Doctor's Name:</strong> {{ appointment.doctor_name }}</p>
+            <p><strong>Department:</strong> {{ appointment.department or 'N/A' }}</p>
+        </div>
+        
+        {% if treatments %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Visit No.</th>
+                            <th>Date</th>
+                            <th>Visit Type</th>
+                            <th>Tests Done</th>
+                            <th>Diagnosis</th>
+                            <th>Prescription</th>
+                            <th>Medicines</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for treatment in treatments %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ treatment.appointment_date }}</td>
+                            <td>{{ treatment.visit_type or 'N/A' }}</td>
+                            <td>{{ treatment.tests_done or 'N/A' }}</td>
+                            <td>{{ treatment.diagnosis or 'N/A' }}</td>
+                            <td>{{ treatment.prescription or 'N/A' }}</td>
+                            <td>{{ treatment.medicines or 'N/A' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted">No treatment history available.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

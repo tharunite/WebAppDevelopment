@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Create Doctor - HMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header">
+                <h4 class="mb-0"><i class="bi bi-person-plus"></i> Add a new Doctor</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('admin.create_doctor') }}">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="username" class="form-label">Username *</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="password" class="form-label">Password *</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">Fullname *</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="specialization" class="form-label">Specialization/Department *</label>
+                            <input type="text" class="form-control" id="specialization" name="specialization" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="department_id" class="form-label">Department</label>
+                            <select class="form-select" id="department_id" name="department_id">
+                                <option value="">Select Department</option>
+                                {% for dept in departments %}
+                                <option value="{{ dept.id }}">{{ dept.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="experience_years" class="form-label">Experience (years)</label>
+                            <input type="number" class="form-control" id="experience_years" name="experience_years" min="0">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="qualification" class="form-label">Qualification</label>
+                            <input type="text" class="form-control" id="qualification" name="qualification" placeholder="e.g., MBBS, MD">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bio" class="form-label">Bio</label>
+                        <textarea class="form-control" id="bio" name="bio" rows="3"></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+                <div class="mt-3">
+                    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,56 @@
+{% extends "public_base.html" %}
+
+{% block title %}Login - CityCare Hospital{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <h2 class="card-title text-center mb-4">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </h2>
+                        <form method="POST" action="{{ url_for('auth.login') }}">
+                            <!-- Role Selection -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Login As</label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="user_type" id="patient" value="patient" checked>
+                                    <label class="btn btn-outline-primary" for="patient">
+                                        <i class="bi bi-person"></i> Patient
+                                    </label>
+                                    
+                                    <input type="radio" class="btn-check" name="user_type" id="staff" value="staff">
+                                    <label class="btn btn-outline-primary" for="staff">
+                                        <i class="bi bi-briefcase"></i> Staff
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                            </div>
+                        </form>
+                        <div class="text-center mt-4">
+                            <p class="mb-2">Do not have an account?</p>
+                            <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary">Register as Patient</a>
+                            <p class="text-muted small mt-3">Note: Staff accounts are created by administrators.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

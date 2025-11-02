@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Dashboard - HMS{% endblock %}
+
+{% block content %}
+<h1 class="mb-4"><i class="bi bi-speedometer2"></i> Welcome Dr. {{ current_user.fullname }}</h1>
+
+<!-- Today's Appointments -->
+{% if today_appointments %}
+<div class="card mb-4 border-primary">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><i class="bi bi-calendar-day"></i> Today's Appointments ({{ today_appointments|length }})</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Sr No.</th>
+                        <th>Patient Name</th>
+                        <th>Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in today_appointments %}
+                    <tr>
+                        <td>{{ appointment.id }}</td>
+                        <td>{{ appointment.patient_name }}</td>
+                        <td>{{ appointment.appointment_time }}</td>
+                        <td>
+                            <a href="{{ url_for('doctor.update_patient_history', appointment_id=appointment.id) }}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil"></i> Update
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Upcoming Appointments (This Week) -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-calendar-check"></i> Upcoming Appointments (This Week)</h5>
+    </div>
+    <div class="card-body">
+        {% if appointments %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>Patient Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Patient History</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.id }}</td>
+                            <td>{{ appointment.patient_name }}</td>
+                            <td>{{ appointment.appointment_date }}</td>
+                            <td>{{ appointment.appointment_time }}</td>
+                            <td>
+                                <a href="{{ url_for('doctor.update_patient_history', appointment_id=appointment.id) }}" class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i> View/Update
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('doctor.update_patient_history', appointment_id=appointment.id) }}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil"></i> Update
+                                </a>
+                                <form method="POST" action="{{ url_for('doctor.complete_appointment', appointment_id=appointment.id) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        <i class="bi bi-check-circle"></i> Mark as Complete
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ url_for('doctor.cancel_appointment', appointment_id=appointment.id) }}" style="display:inline;" onsubmit="return confirm('Cancel this appointment?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-x-circle"></i> Cancel
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted">No upcoming appointments.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Assigned Patients -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-people"></i> Assigned Patients</h5>
+    </div>
+    <div class="card-body">
+        {% if patients %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td>{{ patient.fullname }}</td>
+                            <td>{{ patient.email or 'N/A' }}</td>
+                            <td>
+                                <a href="{{ url_for('doctor.view_patient_history', patient_id=patient.id) }}" class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i> View History
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted">No assigned patients.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Provide Availability -->
+<div class="card mb-4">
+    <div class="card-body text-center">
+        <a href="{{ url_for('doctor.availability') }}" class="btn btn-primary btn-lg">
+            <i class="bi bi-calendar-event"></i> Provide Availability
+        </a>
+    </div>
+</div>
+{% endblock %}
+
