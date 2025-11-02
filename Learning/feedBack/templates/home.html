@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Document</title>
+    <title>Feedback Form</title>
 </head>
 <body>  
     <div class="container">
         <h1>Feedback Form</h1>
-        <form action='/thankyou' method='get'> <label for="name">Your Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name"><br><br><br>
+        <form action="{{url_for('submit_feedback')}}" method="post" target="_blank">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name">
 
             <label for="feedback">Your Feedback:</label>
-            <textarea id="feedback" name="feedback" placeholder="Write your feedback..."></textarea><br><br><br>
+            <textarea id="feedback" name="feedback" placeholder="Write your feedback..."></textarea>
 
             <button type="submit">Submit</button>
         </form>
     </div>
-    
 </body>
 </html>
