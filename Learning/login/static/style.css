@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(270deg,
+        #a1c4fd, /* soft blue */
+        #c2e9fb, /* sky blue */
+        #fbc2eb, /* pink */
+        #fad0c4, /* peach */
+        #ffd1ff, /* lavender pink */
+        #b5fffc, /* aqua */
+        #d4fc79, /* lime tint */
+        #a6c1ee  /* lavender */
+        );
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: 1500% 1500%;
+    animation: gradientMove 200s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    color: #333;
+}
+
+/* Flash message styling */
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.flashes li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.error {
+    background-color: #f8d7da; /* Light Red */
+    color: #721c24;
+}
+
+.success {
+    background-color: #d4edda; /* Light Green */
+    color: #155724;
+}
+
+.warning {
+    background-color: #fff3cd; /* Light Yellow */
+    color: #856404;
+}
+
+.info {
+    background-color: #d1ecf1; /* Light Blue */
+    color: #0c5460;
+}
+
+.secret {
+    color: white; /* Hides the text on white backgrounds */
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+/* Basic form styling */
+input {
+    width: 90%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.logout-link {
+    display: block;
+    margin-top: 15px;
+}

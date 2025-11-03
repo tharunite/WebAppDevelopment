@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Welcome</title>
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <h1>Welcome {{ name }}! 🎉</h1>
+
+        <p><a href="{{ url_for('logout') }}" class="logout-link">Click here to Log Out</a></p>
+
+        <hr>
+
+        <h2>Password in session (for demo):
+            <span class="secret">{{ password }}</span>
+        </h2>
+        <p style="font-size: small; color: #888;">
+            (In a real application, you would **never** display the password.)
+        </p>
+    </div>
+</body>
+</html>
