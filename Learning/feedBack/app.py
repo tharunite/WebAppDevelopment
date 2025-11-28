@@ -19,5 +19,7 @@ def thankyou():
     name = request.args.get('name', 'Guest')
     feedback = request.args.get('feedback', 'No feedback provided')
     return render_template('thankyou.html', name=name, feedback=feedback)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
