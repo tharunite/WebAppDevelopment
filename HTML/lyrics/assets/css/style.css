@@ -1,0 +1,181 @@
+/* Reset defaults */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(125deg, #FF9ECF, #FFCE8A, #FFF59D, #B9FFDD, #9EE7FF, #C8B8FF, #FFAEC0, #ADD8FF);
+    min-height: 100vh;
+    color: #222;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Song info container */
+#Info {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.15);
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.songtitle {
+    border: black solid 2px;
+    border-radius: 30px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#Info h4 a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+#Info h4 a:hover {
+    color: #ff4c8b;
+}
+
+#Info h5 img {
+    border-radius: 10px;
+    margin-top: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#Info h5 img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+audio {
+    margin-top: 20px;
+    width: 100%;
+    outline: none;
+}
+
+/* Lyrics container */
+#lyrics {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.15);
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Lyrics blocks */
+#lyrics p#even,
+#lyrics p#odd {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px; /* spacing between image and text */
+    border-radius: 8px;
+    margin: 15px 0;
+    padding: 15px;
+}
+
+/* Alternate backgrounds */
+#lyrics p#even {
+    background: #f0f8ff;
+}
+
+#lyrics p#odd {
+    background: #ffe4e1;
+}
+
+/* Text inside each block */
+.lyric-text {
+    flex: 1;             /* take remaining space */
+    text-align: right;   /* right-align text */
+    word-wrap: break-word;
+}
+
+/* Image styling */
+.block-img {
+    max-width: 140px;
+    max-height: 140px;
+    width: auto;
+    height: auto;
+    border-radius: 12px;
+    object-fit: contain;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Buttons */
+#lyrics button {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    height: 35px;
+    width: 100px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#lyrics button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Source text */
+#lyrics i {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: right;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    #Info, #lyrics {
+        padding: 20px;
+    }
+
+    .songtitle {
+        font-size: 2rem;
+    }
+
+    #Info h5 img {
+        width: 120px;
+        height: 80px;
+    }
+
+    /* Stack images above text on mobile */
+    #lyrics p#even,
+    #lyrics p#odd {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .lyric-text {
+        text-align: center;
+        width: 100%;
+    }
+
+    .block-img {
+        max-width: 200px;
+        max-height: 200px;
+        margin-bottom: 10px;
+    }
+}
