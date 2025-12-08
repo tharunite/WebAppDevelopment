@@ -1,9 +1,8 @@
-let username;
-document.getElementById("Submit").onclick=function(){
-    username=document.getElementById('nametext').value;
-    document.getElementById('mainH').textContent='Your Name';
-    document.getElementById('mainP').textContent=`hello ${username}. Nice to meet you`;
+let radius, circumference;
+const PI=3.14;
+radius=window.prompt("Enter the radius of your circle");
+PI=400;
+radius=Number(radius);
+circumference=2*PI*radius
+console.log(circumference)
 
-    document.getElementById('nametext').style.display = 'none';
-    document.getElementById('Submit').style.display = 'none';
-}
